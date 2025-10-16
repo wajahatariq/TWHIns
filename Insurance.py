@@ -15,7 +15,7 @@ gc = gspread.service_account_from_dict(creds)
 SHEET_NAME = "Company_Transactions"
 worksheet = gc.open(SHEET_NAME).get_worksheet(1)
 
-AGENTS = ["Select Agent", "Arham Kaleem", "Arham Ali", "Haziq", "Usama", "Areeb"]
+# AGENTS = ["Select Agent", "Arham Kaleem", "Arham Ali", "Haziq", "Usama", "Areeb"]
 LLC_OPTIONS = ["Select LLC", "Bite Bazaar LLC", "Apex Prime Solutions"]
 
 def clear_form():
@@ -49,7 +49,9 @@ st.write("Fill out all client details below:")
 with st.form("transaction_form"):
     col1, col2 = st.columns(2)
     with col1:
-        agent_name = st.selectbox("Agent Name", AGENTS, key="agent_name")
+        agent_name = "Saad"
+        st.text_input("Agent Name", agent_name, disabled=True)
+        
         name = st.text_input("Client Name", key="name")
         phone = st.text_input("Phone Number", key="phone")
         address = st.text_input("Address", key="address")
