@@ -197,7 +197,7 @@ if 'df' in locals() and not df.empty:
         with st.form("edit_lead_form"):
             col1, col2 = st.columns(2)
             with col1:
-                new_agent_name = st.selectbox("Agent Name", agent_name, index=AGENTS.index(record["Agent Name"]) if record["Agent Name"] in AGENTS else 0)
+                new_agent_name = st.text_input("Agent Name", agent_name, disabled=True) 
                 new_name = st.text_input("Client Name", value=record["Name"])
                 new_phone = st.text_input("Phone Number", value=record["Ph Number"])
                 new_address = st.text_input("Address", value=record["Address"])
