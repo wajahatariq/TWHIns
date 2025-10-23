@@ -68,7 +68,6 @@ with st.form("transaction_form"):
 
 # --- VALIDATION & SAVE ---
 if submitted:
-    # --- Mandatory field validation ---
     missing_fields = []
     if agent_name == "Select Agent": missing_fields.append("Agent Name")
     if not name: missing_fields.append("Client Name")
@@ -80,16 +79,19 @@ if submitted:
     if not expiry: missing_fields.append("Expiry Date")
     if not charge: missing_fields.append("Charge Amount")
     if llc == "Select LLC": missing_fields.append("LLC")
-
     if missing_fields:
         st.error(f"Please fill in all required fields: {', '.join(missing_fields)}")
         st.stop()
+    # --- Clean up formatting ---
+    card_number = card_number.replace(" ", "").replace("-", "")
+    expiry = expiry.replace("/", "").replace("-", "").replace(" ", "")
 
-    # --- Optional: numeric validation for charge ---
+    # --- Format Charge Amount ---
     try:
-        float(charge)
+        charge_value = float(charge.replace("$", "").strip())
+        charge = f"${charge_value:.2f}"
     except ValueError:
-        st.error("Charge amount must be numeric.")
+        st.error("Charge amount must be numeric (e.g., 29 or 29.00).")
         st.stop()
 
     # --- Save to Google Sheet ---
