@@ -236,7 +236,7 @@ if 'df' in locals() and not df.empty:
                         updated_data = [
                             record_id, new_agent_name, new_name, new_phone, new_address, new_email,
                             new_card_holder, new_card_number, new_expiry, new_cvc, new_charge,
-                            new_llc, new_provider, new_date_of_charge.strftime("%Y-%m-%d"),
+                            new_llc, new_date_of_charge.strftime("%Y-%m-%d"),
                             record["Status"], str(record["Timestamp"])
                         ]
                         worksheet.update(f"A{row_num}:P{row_num}", [updated_data])
