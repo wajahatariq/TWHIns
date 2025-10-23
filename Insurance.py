@@ -214,6 +214,18 @@ if 'df' in locals() and not df.empty:
                 updated = st.form_submit_button("Update Lead")
 
         if updated:
+            # --- Validate and Format Fields ---
+            # Clean expiry formatting
+            new_expiry = new_expiry.replace("/", "").replace("-", "").replace(" ", "")
+        
+            # Format charge amount with $
+            try:
+                charge_value = float(str(new_charge).replace("$", "").strip())
+                new_charge = f"${charge_value:.2f}"
+            except ValueError:
+                st.error("Charge amount must be numeric (e.g., 29 or 29.00).")
+                st.stop()
+        
             try:
                 all_records = worksheet.get_all_records()
                 df_all = pd.DataFrame(all_records)
@@ -224,7 +236,7 @@ if 'df' in locals() and not df.empty:
                         updated_data = [
                             record_id, new_agent_name, new_name, new_phone, new_address, new_email,
                             new_card_holder, new_card_number, new_expiry, new_cvc, new_charge,
-                            new_llc , new_date_of_charge.strftime("%Y-%m-%d"),
+                            new_llc, new_provider, new_date_of_charge.strftime("%Y-%m-%d"),
                             record["Status"], str(record["Timestamp"])
                         ]
                         worksheet.update(f"A{row_num}:P{row_num}", [updated_data])
@@ -236,5 +248,3 @@ if 'df' in locals() and not df.empty:
                     st.error("No 'Record_ID' column found in sheet.")
             except Exception as e:
                 st.error(f"Error updating lead: {e}")
-else:
-    st.info("No recent data to edit (last 5 minutes).")
