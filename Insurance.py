@@ -197,7 +197,7 @@ if 'df' in locals() and not df.empty:
         with st.form("edit_lead_form"):
             col1, col2 = st.columns(2)
             with col1:
-                new_agent_name = st.selectbox("Agent Name", AGENTS, index=AGENTS.index(record["Agent Name"]) if record["Agent Name"] in AGENTS else 0)
+                new_agent_name = st.selectbox("Agent Name", agent_name, index=AGENTS.index(record["Agent Name"]) if record["Agent Name"] in AGENTS else 0)
                 new_name = st.text_input("Client Name", value=record["Name"])
                 new_phone = st.text_input("Phone Number", value=record["Ph Number"])
                 new_address = st.text_input("Address", value=record["Address"])
@@ -211,7 +211,7 @@ if 'df' in locals() and not df.empty:
                 new_llc = st.selectbox("LLC", LLC_OPTIONS, index=LLC_OPTIONS.index(record["LLC"]) if record["LLC"] in LLC_OPTIONS else 0)
                 new_date_of_charge = st.date_input("Date of Charge", value=pd.to_datetime(record["Date of Charge"]).date() if record["Date of Charge"] else datetime.now().date())
 
-            updated = st.form_submit_button("Update Lead")
+                updated = st.form_submit_button("Update Lead")
 
         if updated:
             try:
