@@ -62,10 +62,9 @@ with st.form("transaction_form"):
         cvc = st.text_input("CVC", key="cvc")
         charge = st.text_input("Charge Amount", key="charge")
         llc = st.selectbox("LLC", LLC_OPTIONS, key="llc")
-        provider = st.selectbox("Provider", PROVIDERS, key="provider")
         date_of_charge = st.date_input("Date of Charge", key="date_of_charge", value=datetime.now().date())
 
-    submitted = st.form_submit_button("Submit")
+        submitted = st.form_submit_button("Submit")
 
 # --- VALIDATION & SAVE ---
 if submitted:
